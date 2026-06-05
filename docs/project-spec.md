@@ -2,15 +2,17 @@
 
 ## Vision
 
-An AI-powered platform that helps developers quickly understand unfamiliar GitHub repositories by generating onboarding guides and answering repository-specific questions with evidence from the codebase.
+An AI-powered platform that helps developers understand unfamiliar GitHub repositories by generating onboarding guides and answering repository-specific questions using repository-aware code intelligence and evidence from the codebase.
 
 ---
 
 ## Problem Statement
 
-Developers spend significant time understanding new codebases. Important information is spread across README files, source code, configuration files, APIs, and database logic.
+Developers spend significant time understanding new codebases. Important information is spread across source code, configuration files, APIs, database layers, and infrastructure configurations.
 
-This project reduces onboarding time by automatically analyzing repositories and generating structured onboarding documentation.
+Most AI tools treat repositories as documents. This project treats repositories as structured systems by extracting framework information, symbols, dependencies, and architecture before involving an LLM.
+
+This reduces onboarding time while minimizing AI cost and improving explainability.
 
 ---
 
@@ -20,7 +22,7 @@ This project reduces onboarding time by automatically analyzing repositories and
 * Open-source contributors
 * Engineering managers evaluating repositories
 * Students learning from public repositories
-* Non-technical stakeholders seeking a high-level understanding
+* Non-technical stakeholders seeking high-level understanding
 
 ---
 
@@ -30,8 +32,11 @@ This project reduces onboarding time by automatically analyzing repositories and
 
 * Accept GitHub repository URL
 * Clone repository
-* Parse relevant files
-* Ignore generated and dependency folders
+* Scan repository structure
+* Detect frameworks and technologies
+* Build symbol index
+* Build dependency graph
+* Identify important files
 
 ### AI Onboarding Guide
 
@@ -42,6 +47,7 @@ Generate:
 * Folder Structure
 * Important APIs
 * Database Flow
+* Authentication Flow
 * Recommended Reading Order
 * Key Files
 
@@ -53,6 +59,7 @@ Allow users to ask:
 * How is the database connected?
 * Which file starts the application?
 * What are the main APIs?
+* How does data flow through the application?
 
 ---
 
@@ -65,13 +72,25 @@ Examples:
 * Source file names
 * Configuration files
 * Dependencies
+* APIs
 * Relevant code snippets
 
 ---
 
-## Analysis Strategy
+## Design Principles
 
-### Phase 1: Metadata Extraction
+1. Evidence-based outputs
+2. Minimize LLM calls
+3. Backend-first code intelligence
+4. Framework-agnostic architecture
+5. Explainable AI responses
+6. Extensible language support
+
+---
+
+## Repository Analysis Pipeline
+
+### Phase 1: Repository Scan
 
 Analyze:
 
@@ -90,27 +109,107 @@ Extract:
 * Languages
 * Frameworks
 * Databases
-* External services
+* Build tools
+* Infrastructure tooling
 
-### Phase 2: Repository Structure Analysis
+---
 
-Analyze:
+### Phase 2: Structure Analysis
+
+Build:
 
 * Folder hierarchy
 * Entry points
-* Key files
-* Project organization
+* Important files
+* Project organization map
 
-### Phase 3: RAG Indexing
+---
 
-* Chunk source code
-* Generate embeddings
-* Store embeddings in ChromaDB
-* Retrieve relevant context for questions
+### Phase 3: Symbol Index Generation
 
-### Phase 4: Guide Generation
+Extract:
 
-Generate onboarding guide using extracted metadata and repository insights.
+* Classes
+* Interfaces
+* Enums
+* Functions
+* Controllers
+* Services
+* Repositories
+
+Example:
+
+UserService -> src/service/UserService.java
+
+Purpose:
+
+Allow fast retrieval of code entities without searching the repository repeatedly.
+
+---
+
+### Phase 4: Dependency Graph Generation
+
+Build relationships between symbols.
+
+Examples:
+
+* Controller → Service
+* Service → Repository
+* Interface → Implementation
+
+Purpose:
+
+Understand application architecture before involving AI.
+
+---
+
+### Phase 5: AI Planning
+
+Send:
+
+* Repository metadata
+* Framework information
+* Folder structure
+* Symbol summaries
+
+AI returns:
+
+* Required files
+* Required symbols
+* Areas requiring deeper analysis
+
+---
+
+### Phase 6: AI Analysis
+
+Provide:
+
+* Requested files
+* Related symbols
+* Relevant configuration files
+
+Generate:
+
+* Architecture understanding
+* Authentication flow
+* Database flow
+* Important modules
+* Reading order
+
+---
+
+### Phase 7: Onboarding Guide Generation
+
+Generate:
+
+* Project Overview
+* Tech Stack
+* Folder Structure
+* Authentication Flow
+* Database Flow
+* Important APIs
+* Reading Order
+* Key Files
 
 ---
 
@@ -124,19 +223,90 @@ Backend (FastAPI)
 ↓
 Repository Cloner
 ↓
-Parser
+Repository Scanner
 ↓
-Metadata Extractor
+Framework Detection Engine
 ↓
-Chunker
+Symbol Index Generator
 ↓
-Embedding Generator
+Dependency Graph Generator
 ↓
-ChromaDB
+AI Planner
 ↓
-LLM
+Targeted File Retrieval
 ↓
-Guide / Answers
+AI Analyzer
+↓
+Onboarding Guide / Q&A
+
+---
+
+## Core Domain Models
+
+### RepositoryContext
+
+Contains:
+
+* Repository metadata
+* Framework information
+* Folder structure
+* Symbol index
+* Dependency graph
+* Important files
+* AI analysis results
+
+Purpose:
+
+Single source of truth throughout the analysis pipeline.
+
+---
+
+## Extensibility Model
+
+### Framework Detectors
+
+Examples:
+
+* Spring Boot Detector
+* React Detector
+* Django Detector
+* FastAPI Detector
+
+### Symbol Extractors
+
+Examples:
+
+* Java Symbol Extractor
+* Python Symbol Extractor
+* TypeScript Symbol Extractor
+
+### Dependency Extractors
+
+Examples:
+
+* Java Dependency Extractor
+* Python Dependency Extractor
+* TypeScript Dependency Extractor
+
+---
+
+## AI Contracts
+
+### Planner Response
+
+{
+"required_symbols": [],
+"required_files": []
+}
+
+### Analysis Response
+
+{
+"project_overview": "",
+"authentication_flow": "",
+"database_flow": "",
+"reading_order": []
+}
 
 ---
 
@@ -151,28 +321,20 @@ Backend:
 
 * FastAPI
 
-Vector Database:
-
-* ChromaDB
-
 AI:
 
 * Ollama
-* Local embedding model
+* Local LLM
 
 Storage:
 
 * SQLite
 
----
+Optional Future Components:
 
-## Design Principles
-
-1. Evidence-based outputs
-2. Consistent report structure
-3. Background indexing
-4. Cost-efficient analysis
-5. Explainable AI responses
+* ChromaDB
+* Vector Search
+* Embeddings
 
 ---
 
@@ -180,7 +342,10 @@ Storage:
 
 Included:
 
-* Repository indexing
+* Repository scanning
+* Framework detection
+* Symbol indexing
+* Dependency graph generation
 * AI onboarding guide
 * Repository Q&A
 * Evidence generation
@@ -190,16 +355,18 @@ Not Included:
 * Authentication
 * Team collaboration
 * Multi-user workspaces
-* Architecture diagram generation
 * GitHub OAuth
+* Architecture diagram generation
 
 ---
 
 ## Future Enhancements
 
+* AST-based parsing
 * Architecture diagrams
 * Multi-repository analysis
 * Pull request understanding
 * Dependency risk analysis
-* GitHub integration
 * Team onboarding workflows
+* Agent-based code exploration
+* Incremental repository updates
