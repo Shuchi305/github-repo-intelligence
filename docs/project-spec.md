@@ -215,29 +215,28 @@ Generate:
 
 ## High-Level Architecture
 
-User
-↓
-Frontend (React)
-↓
-Backend (FastAPI)
-↓
-Repository Cloner
-↓
-Repository Scanner
-↓
-Framework Detection Engine
-↓
-Symbol Index Generator
-↓
-Dependency Graph Generator
-↓
-AI Planner
-↓
-Targeted File Retrieval
-↓
-AI Analyzer
-↓
-Onboarding Guide / Q&A
+```mermaid
+flowchart TD
+    A[User] --> B[Frontend React]
+    B --> C[Backend FastAPI]
+    C --> D[Repository Cloner]
+    D --> E[Repository Scanner]
+
+    E --> F[Framework Detection Engine]
+    E --> G[Symbol Index Generator]
+    E --> H[Dependency Graph Generator]
+
+    F --> I[RepositoryContext]
+    G --> I
+    H --> I
+
+    I --> J[AI Planner]
+    J --> K[Targeted File Retrieval]
+    K --> L[AI Analyzer]
+    L --> M[Analysis Results]
+    M --> N[Onboarding Guide Generator]
+    N --> O[Onboarding Guide / Repository Q&A]
+```
 
 ---
 
