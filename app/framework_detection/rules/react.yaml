@@ -1,0 +1,4 @@
+# React detection rules
+indicators:
+  - "package.json"
+  - "react-scripts"

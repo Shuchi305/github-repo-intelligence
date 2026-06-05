@@ -1,0 +1,3 @@
+# Analyzer prompt template
+
+Extract insights and summarize the repository components.

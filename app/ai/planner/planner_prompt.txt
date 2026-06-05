@@ -1,0 +1,3 @@
+# Planner prompt template
+
+Describe high-level steps to analyze a repository.

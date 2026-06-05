@@ -1,0 +1,4 @@
+# Django detection rules
+indicators:
+  - "manage.py"
+  - "django"

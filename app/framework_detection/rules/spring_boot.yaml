@@ -1,0 +1,4 @@
+# Spring Boot detection rules
+indicators:
+  - "pom.xml"
+  - "@SpringBootApplication"

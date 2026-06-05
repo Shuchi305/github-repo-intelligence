@@ -1,0 +1,4 @@
+# FastAPI detection rules
+indicators:
+  - "fastapi"
+  - "uvicorn"
