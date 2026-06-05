@@ -88,6 +88,22 @@ Examples:
 
 ---
 
+## AI Cost Optimization
+
+The platform should minimize LLM usage by performing deterministic analysis whenever possible.
+
+### Principles
+
+* Detect frameworks using repository metadata and code patterns.
+* Build symbol indexes without LLM involvement.
+* Generate dependency graphs without LLM involvement.
+* Retrieve only relevant files for AI analysis.
+* Use AI primarily for architectural understanding and onboarding generation.
+* Cache repository analysis results to avoid repeated processing.
+* Prefer backend intelligence over LLM reasoning whenever deterministic solutions exist.
+
+---
+
 ## Repository Analysis Pipeline
 
 ### Phase 1: Repository Scan
@@ -289,6 +305,40 @@ Examples:
 
 ---
 
+## Language Support Layer
+
+The platform should support language-specific implementations for repository analysis while keeping the overall architecture framework-agnostic.
+
+### Responsibilities
+
+* Framework Detection
+* Symbol Extraction
+* Dependency Graph Generation
+
+### Initial Language Support
+
+* Java
+* Python
+* TypeScript
+
+### Future Language Support
+
+* Go
+* C#
+* Rust
+
+### Extensibility Model
+
+Each language can provide its own implementations for:
+
+* FrameworkDetector
+* SymbolExtractor
+* DependencyExtractor
+
+without requiring changes to the overall analysis pipeline.
+
+---
+
 ## AI Contracts
 
 ### Planner Response
@@ -337,6 +387,30 @@ Optional Future Components:
 
 ---
 
+## V1 Supported Technologies
+
+To avoid scope creep, Version 1 will focus on a limited set of commonly used technologies.
+
+### Backend Frameworks
+
+* Spring Boot
+* FastAPI
+
+### Frontend Frameworks
+
+* React
+
+### Databases
+
+* PostgreSQL
+* MySQL
+
+### Infrastructure
+
+* Docker
+
+---
+
 ## V1 Scope
 
 Included:
@@ -369,3 +443,9 @@ Not Included:
 * Team onboarding workflows
 * Agent-based code exploration
 * Incremental repository updates
+
+
+
+
+
+
