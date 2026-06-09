@@ -5,5 +5,6 @@ from dataclasses import dataclass
 @dataclass
 class SymbolInfo:
     name: str
-    kind: str
-    location: str
+    symbol_type: str
+    file_path: str
+    line_number: int

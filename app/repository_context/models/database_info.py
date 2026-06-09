@@ -4,5 +4,5 @@ from dataclasses import dataclass
 
 @dataclass
 class DatabaseInfo:
-    engine: str
-    connection_string: str | None = None
+    database_type: str | None
+    entities: list[str]
