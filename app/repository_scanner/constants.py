@@ -9,3 +9,16 @@ IGNORED_DIRS = {
     ".idea",
     ".vscode"
 }
+IMPORTANT_FILES = {
+    "pom.xml",
+    "build.gradle",
+    "build.gradle.kts",
+    "package.json",
+    "requirements.txt",
+    "Dockerfile",
+    "docker-compose.yml",
+    "application.yml",
+    "application.properties",
+    ".env.example",
+    "README.md",
+}

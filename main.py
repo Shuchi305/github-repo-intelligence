@@ -15,10 +15,11 @@ def main():
 
     print("Files discovered:", len(context.source_files))
     print(context.source_files[0])
-    # print("Repository:", context.metadata.name)
-    # print("Files:", context.metadata.total_files)
-    # print("Languages:", context.metadata.languages)
-    # print("Primary Language:", context.metadata.primary_language)
+    print("Repository:", context.metadata.name)
+    print("Files:", context.metadata.total_files)
+    print("Languages:", context.metadata.languages)
+    print("Primary Language:", context.metadata.primary_language)
+    print("Important Files:", context.metadata.important_files)
 
 
 

@@ -1,6 +1,7 @@
 """File filters helper"""
 
 from typing import List
+from .constants import IMPORTANT_FILES
 
-def is_code_file(path: str) -> bool:
-    return any(path.endswith(ext) for ext in ['.py', '.java', '.ts', '.js'])
+def is_important_file(baseName: str) -> bool:
+    return baseName in IMPORTANT_FILES
