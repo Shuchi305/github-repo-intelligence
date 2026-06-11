@@ -1,14 +1,32 @@
 """Framework detection engine"""
 
-class DetectionEngine:
+from abc import ABC, abstractmethod
+# from app.repository_context.models.framework_info import FrameworkInfo
+# from app.repository_context.repository_context import RepositoryContext
+# from .detectors.base_detector import FrameworkDetector
+from .detectors.fastapi_detector import FastAPIDetector
+from .detectors.django_detector import DjangoDetector
+from .detectors.spring_boot_detector import SpringBootDetector
+
+class FrameworkDetectionEngine:
+
     def __init__(self):
-        self.detectors = []
 
-    def register(self, detector):
-        self.detectors.append(detector)
+        self.detectors = [
+            FastAPIDetector(),
+            DjangoDetector(),
+            SpringBootDetector(),
+        ]
 
-    def detect(self, repo_path: str):
-        results = {}
-        for d in self.detectors:
-            results[d.__class__.__name__] = d.detect(repo_path)
-        return results
+    def detect(self, context):
+
+        frameworks = []
+
+        for detector in self.detectors:
+
+            result = detector.detect(context)
+
+            if result:
+                frameworks.append(result)
+
+        return frameworks

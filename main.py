@@ -4,6 +4,7 @@ from multiprocessing import context
 
 from app.repository_context.repository_context import RepositoryContext
 from app.repository_scanner.scanner import RepositoryScanner
+from app.framework_detection.engine import FrameworkDetectionEngine
 
 def main():
 
@@ -20,6 +21,21 @@ def main():
     print("Languages:", context.metadata.languages)
     print("Primary Language:", context.metadata.primary_language)
     print("Important Files:", context.metadata.important_files)
+
+
+    framework_engine = FrameworkDetectionEngine()
+
+    frameworks = framework_engine.detect(context)
+    print("Frameworks detected:", frameworks)
+
+    print("\nDetected Frameworks:")
+
+    for framework in frameworks:
+        print(f"- {framework.name}")
+        print(f"  Confidence: {framework.confidence}")
+        print(f"  Version: {framework.version}")
+        print(f"  Evidence: {framework.evidence}")
+
 
 
 

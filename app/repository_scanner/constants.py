@@ -21,4 +21,5 @@ IMPORTANT_FILES = {
     "application.properties",
     ".env.example",
     "README.md",
+    "pyproject.toml",
 }

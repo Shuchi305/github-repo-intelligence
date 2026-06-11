@@ -6,4 +6,5 @@ from dataclasses import dataclass
 class FrameworkInfo:
     name: str
     version: str | None
-    evidence_files: list[str]
+    confidence: float
+    evidence: list[str]

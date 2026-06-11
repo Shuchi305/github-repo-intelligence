@@ -40,6 +40,17 @@ class RepositoryContext:
 
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
+        
+    def get_important_file(
+        self,
+        filename: str
+    ) -> FileInfo | None:
+
+        for file in self.metadata.important_files:
+            if file.path.endswith(filename):
+                return file
+
+        return None
     # dependency_graph: None 
 
     # onboarding_guide: OnboardingGuide
