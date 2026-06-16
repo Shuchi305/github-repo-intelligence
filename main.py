@@ -5,6 +5,7 @@ from multiprocessing import context
 from app.repository_context.repository_context import RepositoryContext
 from app.repository_scanner.scanner import RepositoryScanner
 from app.framework_detection.engine import FrameworkDetectionEngine
+from app.symbol_indexing.symbol_indexing_engine import SymbolIndexingEngine
 
 def main():
 
@@ -36,7 +37,12 @@ def main():
         print(f"  Version: {framework.version}")
         print(f"  Evidence: {framework.evidence}")
 
+    engine = SymbolIndexingEngine()
+    engine.build_symbol_index(context)
 
+    print("\nExtracted Symbols:", len(context.symbols))
+    for symbol in context.symbols:
+        print(f"- {symbol.name} ({symbol.symbol_type}) in {symbol.file_path} at line {symbol.line_number}")
 
 
 if __name__ == "__main__":
