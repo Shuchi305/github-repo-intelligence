@@ -1,6 +1,8 @@
 """Dependency extractor interface"""
-from typing import Dict, List
+from abc import ABC, abstractmethod
 
-class DependencyExtractor:
-    def extract(self, repo_path: str) -> Dict[str, List[str]]:
-        raise NotImplementedError()
+class DependencyExtractor(ABC):
+
+    @abstractmethod
+    def extract_dependencies(self, file_path: str):
+        pass
